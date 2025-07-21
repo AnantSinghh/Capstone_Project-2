@@ -13,7 +13,7 @@ import AboutPage from "./AboutPage"
 import ContactPage from "./ContactPage"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
-import "./styles/App.css"
+import "./styles/app.css"
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
