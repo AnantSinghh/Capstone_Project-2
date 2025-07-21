@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import SearchBar from "./SearchBar"
 import Filters from "./Filters"
 import RecipeList from "./RecipeList"
+import RecipeModal from "./RecipeModal"
 import { fetchRecipes } from "./ApiFetch"
 import "./styles/HomePage.css"
 
@@ -13,6 +14,7 @@ const HomePage = () => {
   const [filters, setFilters] = useState({})
   const [recipes, setRecipes] = useState([])
   const [loading, setLoading] = useState(false)
+  const [selectedRecipe, setSelectedRecipe] = useState(null)
 
   const handleSearch = (term) => setQuery(term)
   const handleFilterChange = (f) => setFilters((prev) => ({ ...prev, ...f }))
@@ -31,15 +33,7 @@ const HomePage = () => {
 
       try {
         const data = await fetchRecipes(term, filters)
-        let results = data
-
-        if (filters.diet === "veg") {
-          results = results.filter((r) => r.vegetarian)
-        } else if (filters.diet === "non-veg") {
-          results = results.filter((r) => !r.vegetarian)
-        }
-
-        setRecipes(results)
+        setRecipes(data)
       } catch (error) {
         console.error("Error fetching recipes:", error)
         setRecipes([])
@@ -80,8 +74,10 @@ const HomePage = () => {
           </button>
         </div>
       ) : (
-        <RecipeList recipes={recipes} />
+        <RecipeList recipes={recipes} onRecipeClick={setSelectedRecipe} />
       )}
+
+      {selectedRecipe && <RecipeModal recipe={selectedRecipe} onClose={() => setSelectedRecipe(null)} />}
     </div>
   )
 }

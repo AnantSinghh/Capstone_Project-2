@@ -1,14 +1,14 @@
-import React from "react";
-import "./styles/Filters.css";
+"use client"
 
+import "./styles/Filters.css"
 
 const Filters = ({ onFilterChange }) => {
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     if (onFilterChange) {
-      onFilterChange({ [name]: value });
+      onFilterChange({ [name]: value })
     }
-  };
+  }
 
   return (
     <div className="filters">
@@ -19,8 +19,6 @@ const Filters = ({ onFilterChange }) => {
           <option value="Breakfast">Breakfast</option>
           <option value="Lunch">Lunch</option>
           <option value="Dinner">Dinner</option>
-          <option value="Snacks">Snacks</option>
-
         </select>
       </label>
 
@@ -28,35 +26,39 @@ const Filters = ({ onFilterChange }) => {
         Diet:
         <select name="diet" onChange={handleChange}>
           <option value="">Any</option>
-          <option value="veg">Vegetarian</option>
-          <option value="non-veg">Non-Vegetarian</option>
+          <option value="Vegetarian">Vegetarian</option>
+          <option value="Non-Vegetarian">Non-Vegetarian</option>
         </select>
       </label>
-      <label>
-  Max Cooking Time:
-  <select name="cookingTime" onChange={handleChange}>
-    <option value="">Any</option>
-    <option value="15">Under 15 min</option>
-    <option value="30">Under 30 min</option>
-    <option value="60">Under 1 hour</option>
-    <option value="61">Over 1 hour</option>
-  </select>
-</label>
-<label>
-  Cuisine:
-  <select name="cuisine" onChange={handleChange}>
-    <option value="">Any</option>
-    <option value="Indian">Indian</option>
-    <option value="Italian">Italian</option>
-    <option value="Chinese">Chinese</option>
-    <option value="Mexican">Mexican</option>
-    <option value="American">American</option>
-    <option value="Thai">Thai</option>
-    <option value="French">French</option>
-  </select>
-</label>
-    </div>
-  );
-};
 
-export default Filters;
+      <label>
+        Max Cooking Time:
+        <select name="cookingTime" onChange={handleChange}>
+          <option value="">Any</option>
+          <option value="15">Under 15 min</option>
+          <option value="30">Under 30 min</option>
+          <option value="60">Under 1 hour</option>
+          <option value="61">Over 1 hour</option>
+        </select>
+      </label>
+
+      <label>
+        Cuisine:
+        <select name="cuisine" onChange={handleChange}>
+          <option value="">Any</option>
+          <option value="Indian">Indian</option>
+          <option value="Italian">Italian</option>
+          <option value="American">American</option>
+          <option value="Asian">Asian</option>
+          <option value="Thai">Thai</option>
+          <option value="Greek">Greek</option>
+          <option value="Middle Eastern">Middle Eastern</option>
+          <option value="Continental">Continental</option>
+          <option value="South Indian">South Indian</option>
+        </select>
+      </label>
+    </div>
+  )
+}
+
+export default Filters

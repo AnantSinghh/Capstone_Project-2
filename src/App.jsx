@@ -4,10 +4,13 @@ import { useEffect, useState } from "react"
 import { Routes, Route, Navigate } from "react-router-dom"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "./firebase"
+import { ThemeProvider } from "./ThemeContext"
 import Signup from "./Signup"
 import Login from "./Login"
 import HomePage from "./HomePage"
 import FavoritesPage from "./FavoritesPage"
+import AboutPage from "./AboutPage"
+import ContactPage from "./ContactPage"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
 import "./styles/App.css"
@@ -66,47 +69,51 @@ const PublicRoute = ({ children }) => {
 
 function App() {
   return (
-    <div className="app">
-      <Navbar />
-      <main className="main-content">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <HomePage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/favorites"
-            element={
-              <ProtectedRoute>
-                <FavoritesPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <PublicRoute>
-                <Signup />
-              </PublicRoute>
-            }
-          />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="app">
+        <Navbar />
+        <main className="main-content">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <HomePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/favorites"
+              element={
+                <ProtectedRoute>
+                  <FavoritesPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <PublicRoute>
+                  <Signup />
+                </PublicRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </ThemeProvider>
   )
 }
 

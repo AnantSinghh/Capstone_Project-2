@@ -13,20 +13,27 @@
 
 .modal-content {
   position: relative;
-  background: #fff;
+  background: var(--bg-secondary);
   padding: 20px;
   border-radius: 8px;
   max-width: 600px;
   max-height: 80vh;
   overflow-y: auto;
+  border: 1px solid var(--border-color);
 }
 
 .modal-close {
-position: absolute;
-top: 8px;
-right: 12px;
-background: none;
-border: none;
-font-size: 1.5rem;
-cursor: pointer;
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+  color: var(--accent-primary);
 }

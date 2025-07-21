@@ -1,16 +1,17 @@
 .recipe-card {
-  background: white;
+  background: var(--bg-secondary);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--shadow-light);
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
+  border: 1px solid var(--border-color);
 }
 
 .recipe-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px var(--shadow-medium);
 }
 
 .recipe-image-container {
@@ -63,20 +64,42 @@
 
 .recipe-card-content h3 {
   font-size: 1.1rem;
-  color: #333;
-  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
   line-height: 1.4;
   font-weight: 600;
 }
 
+.recipe-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
 .recipe-time,
-.recipe-servings {
+.recipe-diet,
+.recipe-cuisine {
   font-size: 0.85rem;
-  color: #666;
-  margin: 0.25rem 0;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
+
+.recipe-nutrition {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.calories,
+.protein {
+  font-size: 0.8rem;
+  color: var(--accent-primary);
+  font-weight: 500;
 }
 
 /* Responsive design */
@@ -97,5 +120,11 @@
     width: 36px;
     height: 36px;
     font-size: 1rem;
+  }
+
+  .recipe-nutrition {
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-start;
   }
 }

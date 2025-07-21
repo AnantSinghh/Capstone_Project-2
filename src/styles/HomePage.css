@@ -12,14 +12,14 @@
 
 .homepage-header h1 {
   font-size: 2.5rem;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
   font-weight: 700;
 }
 
 .homepage-header p {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
 }
@@ -27,11 +27,12 @@
 .no-recipes {
   text-align: center;
   padding: 3rem 2rem;
-  color: #333;
-  background: white;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--shadow-light);
   margin: 2rem 0;
+  border: 1px solid var(--border-color);
 }
 
 .no-recipes-img {
@@ -39,24 +40,24 @@
   max-width: 90%;
   margin-bottom: 1.5rem;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--shadow-light);
 }
 
 .no-recipes h2 {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .no-recipes p {
   font-size: 1rem;
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 1.5rem;
 }
 
 .reset-btn {
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #ff6347 0%, #ff8a65 100%);
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -78,11 +79,12 @@
   align-items: center;
   justify-content: center;
   padding: 4rem 2rem;
-  color: #666;
-  background: white;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--shadow-light);
   margin: 2rem 0;
+  border: 1px solid var(--border-color);
 }
 
 .loading-container p {

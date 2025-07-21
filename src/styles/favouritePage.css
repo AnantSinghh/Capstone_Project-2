@@ -10,12 +10,12 @@
     align-items: center;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #e1e5e9;
+    border-bottom: 2px solid var(--border-color);
   }
   
   .favorites-header h2 {
     font-size: 2rem;
-    color: #333;
+    color: var(--text-primary);
     font-weight: 600;
   }
   
@@ -38,9 +38,10 @@
   .no-favorites {
     text-align: center;
     padding: 4rem 2rem;
-    background: white;
+    background: var(--bg-secondary);
     border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px var(--shadow-light);
+    border: 1px solid var(--border-color);
   }
   
   .no-favorites-icon {
@@ -50,12 +51,12 @@
   
   .no-favorites h3 {
     font-size: 1.5rem;
-    color: #333;
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
   }
   
   .no-favorites p {
-    color: #666;
+    color: var(--text-secondary);
     font-size: 1rem;
     max-width: 400px;
     margin: 0 auto;
@@ -68,16 +69,17 @@
   }
   
   .favorite-card {
-    background: white;
+    background: var(--bg-secondary);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px var(--shadow-light);
     overflow: hidden;
     transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
   }
   
   .favorite-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px var(--shadow-medium);
   }
   
   .favorite-card img {
@@ -92,7 +94,7 @@
   
   .favorite-card-content h3 {
     font-size: 1.1rem;
-    color: #333;
+    color: var(--text-primary);
     margin-bottom: 1rem;
     line-height: 1.4;
   }

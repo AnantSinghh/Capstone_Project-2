@@ -4,11 +4,14 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { auth } from "./firebase"
 import { onAuthStateChanged, signOut } from "firebase/auth"
+import { useTheme } from "./ThemeContext"
 import "./styles/Navbar.css"
 
 const Navbar = () => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { isDarkMode, toggleTheme } = useTheme()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -29,6 +32,14 @@ const Navbar = () => {
     }
   }
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
+  const closeMenu = () => {
+    setIsMenuOpen(false)
+  }
+
   if (loading) {
     return (
       <nav className="navbar">
@@ -43,22 +54,41 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/">
+        <Link to="/" onClick={closeMenu}>
           🍽️ <span>Flavour Hunt</span>
         </Link>
       </div>
 
-      <div className="navbar-links">
+      <div className="navbar-hamburger" onClick={toggleMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
         {user ? (
           <>
-            <Link to="/" className="nav-link">
+            <Link to="/" className="nav-link" onClick={closeMenu}>
               Home
             </Link>
-            <Link to="/favorites" className="nav-link">
+            <Link to="/favorites" className="nav-link" onClick={closeMenu}>
               Favorites
             </Link>
+            <Link to="/about" className="nav-link" onClick={closeMenu}>
+              About
+            </Link>
+            <Link to="/contact" className="nav-link" onClick={closeMenu}>
+              Contact
+            </Link>
+            <button
+              onClick={toggleTheme}
+              className="theme-toggle"
+              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {isDarkMode ? "☀️" : "🌙"}
+            </button>
             <div className="user-info">
-              <span className="user-name">Hello, {user.displayName || user.email}!</span>
+              <span className="user-name">Hello, {user.displayName || user.email?.split("@")[0]}!</span>
               <button onClick={handleLogout} className="logout-btn">
                 Logout
               </button>
@@ -66,10 +96,23 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to="/login" className="nav-link">
+            <Link to="/about" className="nav-link" onClick={closeMenu}>
+              About
+            </Link>
+            <Link to="/contact" className="nav-link" onClick={closeMenu}>
+              Contact
+            </Link>
+            <button
+              onClick={toggleTheme}
+              className="theme-toggle"
+              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {isDarkMode ? "☀️" : "🌙"}
+            </button>
+            <Link to="/login" className="nav-link" onClick={closeMenu}>
               Login
             </Link>
-            <Link to="/signup" className="nav-link signup-link">
+            <Link to="/signup" className="nav-link signup-link" onClick={closeMenu}>
               Sign Up
             </Link>
           </>

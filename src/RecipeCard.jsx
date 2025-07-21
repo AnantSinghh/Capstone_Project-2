@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import "./styles/RecipeCard.css"
 
 const RecipeCard = ({ recipe, onRecipeClick }) => {
   const [isFavorite, setIsFavorite] = useState(false)
@@ -34,15 +35,22 @@ const RecipeCard = ({ recipe, onRecipeClick }) => {
         <button
           onClick={handleFavorite}
           className={`favorite-btn ${isFavorite ? "favorited" : ""}`}
-          title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          title={isFavorite ? "Remove" : "Add"}
         >
           {isFavorite ? "❤️" : "🤍"}
         </button>
       </div>
       <div className="recipe-card-content">
         <h3>{recipe.title}</h3>
-        {recipe.readyInMinutes && <p className="recipe-time">⏱️ {recipe.readyInMinutes} mins</p>}
-        {recipe.servings && <p className="recipe-servings">👥 Serves {recipe.servings}</p>}
+        <div className="recipe-meta">
+          <p className="recipe-time">⏱️ {recipe.cookingTime} mins</p>
+          <p className="recipe-diet">🥗 {recipe.diet}</p>
+          <p className="recipe-cuisine">🌍 {recipe.cuisine}</p>
+        </div>
+        <div className="recipe-nutrition">
+          <span className="calories">🔥 {recipe.nutrition.calories} cal</span>
+          <span className="protein">💪 {recipe.nutrition.protein}g protein</span>
+        </div>
       </div>
     </div>
   )

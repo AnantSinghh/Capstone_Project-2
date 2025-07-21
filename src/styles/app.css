@@ -1,8 +1,51 @@
-.app {
+/* CSS Variables for Theme Colors */
+:root {
+    --bg-primary: #f8f9fa;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f8f9fa;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-muted: #999999;
+    --border-color: #e1e5e9;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+    --accent-primary: #ff6347;
+    --accent-secondary: #ff8a65;
+    --success-bg: #d4edda;
+    --success-text: #155724;
+    --success-border: #c3e6cb;
+    --error-bg: #fee;
+    --error-text: #c53030;
+    --error-border: #fed7d7;
+  }
+  
+  .dark {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #3a3a3a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-muted: #999999;
+    --border-color: #404040;
+    --shadow-light: rgba(0, 0, 0, 0.3);
+    --shadow-medium: rgba(0, 0, 0, 0.4);
+    --accent-primary: #ff6347;
+    --accent-secondary: #ff8a65;
+    --success-bg: #1e4620;
+    --success-text: #4ade80;
+    --success-border: #166534;
+    --error-bg: #4c1d1d;
+    --error-text: #f87171;
+    --error-border: #7f1d1d;
+  }
+  
+  .app {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #f8f9fa;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   .main-content {
@@ -16,14 +59,14 @@
     align-items: center;
     justify-content: center;
     padding: 3rem;
-    color: #666;
+    color: var(--text-secondary);
   }
   
   .loading-spinner {
     width: 40px;
     height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #ff6347;
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--accent-primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-bottom: 1rem;
@@ -48,8 +91,9 @@
   body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f8f9fa;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   button {
@@ -64,5 +108,23 @@
   a {
     text-decoration: none;
     color: inherit;
+  }
+  
+  /* Scrollbar Styling for Dark Mode */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
   }
   
