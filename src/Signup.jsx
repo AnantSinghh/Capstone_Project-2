@@ -1,65 +1,158 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase";
-// import "./styles/Auth.css"; // Optional, for styling
+"use client"
+
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { auth } from "./firebase"
+import "./styles/Auth.css"
 
 const Signup = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+  }
 
   const handleSignup = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    setLoading(true)
+    setError("")
 
-    if (password !== confirmPassword) {
-      alert("Passwords do not match.");
-      return;
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match.")
+      setLoading(false)
+      return
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long.")
+      setLoading(false)
+      return
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert("Signup successful!");
-      navigate("/login");
+      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
+
+      // Update user profile with name
+      await updateProfile(userCredential.user, {
+        displayName: formData.name,
+      })
+
+      navigate("/")
     } catch (error) {
-      alert("Signup failed: " + error.message);
+      setError(getErrorMessage(error.code))
+    } finally {
+      setLoading(false)
     }
-  };
+  }
+
+  const getErrorMessage = (errorCode) => {
+    switch (errorCode) {
+      case "auth/email-already-in-use":
+        return "An account with this email already exists."
+      case "auth/invalid-email":
+        return "Invalid email address."
+      case "auth/weak-password":
+        return "Password is too weak."
+      default:
+        return "Signup failed. Please try again."
+    }
+  }
 
   return (
     <div className="auth-container">
-      <form onSubmit={handleSignup} className="auth-form">
-        <h2>Sign Up</h2>
+      <div className="auth-card">
+        <div className="auth-header">
+          <h2>Join Flavour Hunt!</h2>
+          <p>Create your account to discover amazing recipes</p>
+        </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <form onSubmit={handleSignup} className="auth-form">
+          {error && <div className="error-message">{error}</div>}
 
-        <input
-          type="password"
-          placeholder="Password (min 6 characters)"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <div className="form-group">
+            <label htmlFor="name">Full Name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Enter your full name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              disabled={loading}
+            />
+          </div>
 
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              disabled={loading}
+            />
+          </div>
 
-        <button type="submit">Sign Up</button>
-      </form>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Create a password (min 6 characters)"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              disabled={loading}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm your password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              disabled={loading}
+            />
+          </div>
+
+          <button type="submit" className="auth-button" disabled={loading}>
+            {loading ? "Creating Account..." : "Create Account"}
+          </button>
+        </form>
+
+        <div className="auth-footer">
+          <p>
+            Already have an account?{" "}
+            <Link to="/login" className="auth-link">
+              Sign in here
+            </Link>
+          </p>
+        </div>
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup

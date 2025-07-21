@@ -1,20 +1,113 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Signup from "./Signup";
-import Login from "./Login.jsx";
-import HomePage from "./HomePage";
-import Navbar from "./Navbar.jsx";
+"use client"
+
+import { useEffect, useState } from "react"
+import { Routes, Route, Navigate } from "react-router-dom"
+import { onAuthStateChanged } from "firebase/auth"
+import { auth } from "./firebase"
+import Signup from "./Signup"
+import Login from "./Login"
+import HomePage from "./HomePage"
+import FavoritesPage from "./FavoritesPage"
+import Navbar from "./Navbar"
+import Footer from "./Footer"
+import "./styles/App.css"
+
+// Protected Route Component
+const ProtectedRoute = ({ children }) => {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+      setLoading(false)
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading...</p>
+      </div>
+    )
+  }
+
+  return user ? children : <Navigate to="/login" />
+}
+
+// Public Route Component (redirect to home if already logged in)
+const PublicRoute = ({ children }) => {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+      setLoading(false)
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading...</p>
+      </div>
+    )
+  }
+
+  return user ? <Navigate to="/" /> : children
+}
 
 function App() {
   return (
-    <>
+    <div className="app">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </>
-  );
+      <main className="main-content">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <ProtectedRoute>
+                <FavoritesPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <PublicRoute>
+                <Signup />
+              </PublicRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  )
 }
 
-export default App;
+export default App
