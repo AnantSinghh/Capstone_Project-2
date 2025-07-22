@@ -15,7 +15,7 @@ import Navbar from "./Navbar"
 import Footer from "./Footer"
 import "./styles/app.css"
 
-// Protected Route Component
+
 const ProtectedRoute = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -41,7 +41,7 @@ const ProtectedRoute = ({ children }) => {
   return user ? children : <Navigate to="/login" />
 }
 
-// Public Route Component (redirect to home if already logged in)
+
 const PublicRoute = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)

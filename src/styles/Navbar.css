@@ -66,14 +66,14 @@
   transform: translateY(-1px);
 }
 
-.signup-link {
+/* .signup-link {
   background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.3);
-}
+} */
 
-.signup-link:hover {
+/* .signup-link:hover {
   background-color: rgba(255, 255, 255, 0.3);
-}
+} */
 
 .theme-toggle {
   background: rgba(255, 255, 255, 0.2);
